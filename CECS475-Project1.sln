@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{981F2660-0
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Cecs475.BoardGames", "src\Cecs475.BoardGames\Cecs475.BoardGames.xproj", "{B7976D9B-8C23-4239-8E4A-0DF6BD1AB9CA}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Cecs475.BoardGames.Chess.Core", "src\Cecs475.BoardGames.Chess\Cecs475.BoardGames.Chess.Core.xproj", "{31003E33-529F-476A-94D1-F7D9DF90B751}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Cecs475.BoardGames.Chess", "src\Cecs475.BoardGames.Chess\Cecs475.BoardGames.Chess.xproj", "{31003E33-529F-476A-94D1-F7D9DF90B751}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Cecs475.BoardGames.Chess.Test", "test\Cecs475.BoardGames.Chess.Test\Cecs475.BoardGames.Chess.Test.xproj", "{BBA20252-0205-407D-9860-D966B8922282}"
 EndProject
