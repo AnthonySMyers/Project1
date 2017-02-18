@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Cecs475.BoardGames.Chess {
-	
+
 	public class ChessBoard : IGameBoard {
 		/// <summary>
 		/// The number of rows and columns on the chess board.
@@ -21,7 +21,7 @@ namespace Cecs475.BoardGames.Chess {
 			{1, 1, 1, 1, 1, 1, 1, 1 },
 			{2, 4, 5, 6, 7, 5, 4, 3 }
 		};
-		
+
 		// TODO:
 		// You need a way of keeping track of certain game state flags. For example, a rook cannot perform a castling move
 		// if either the rook or its king has moved in the game, so you need a way of determining whether those things have 
@@ -44,7 +44,7 @@ namespace Cecs475.BoardGames.Chess {
 		/// <param name="startingPositions">a sequence of tuple pairs, where each pair specifies the starting
 		/// position of a particular piece to place on the board</param>
 		public ChessBoard(IEnumerable<Tuple<BoardPosition, ChessPiecePosition>> startingPositions)
-			
+
 			: this() { // NOTE THAT THIS CONSTRUCTOR CALLS YOUR DEFAULT CONSTRUCTOR FIRST
 
 
@@ -65,7 +65,7 @@ namespace Cecs475.BoardGames.Chess {
 		public int Value { get; private set; }
 
 
-		
+
 		public int CurrentPlayer {
 			get {
 				// TODO: implement the CurrentPlayer property.
@@ -112,7 +112,7 @@ namespace Cecs475.BoardGames.Chess {
 			throw new NotImplementedException();
 		}
 
-		
+
 		/// <summary>
 		/// Returns true if the given position on the board is empty.
 		/// </summary>
@@ -164,6 +164,44 @@ namespace Cecs475.BoardGames.Chess {
 			throw new NotImplementedException();
 		}
 
+		/// <summary>
+		/// Returns a sequence of all positions that contain the given piece controlled by the given player.
+		/// </summary>
+		/// <returns>an empty sequence if the given player does not control any of the given piece type</returns>
+		public IEnumerable<BoardPosition> GetPositionsOfPiece(ChessPieceType piece, int player) {
+			// TODO: implement this method.
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
+		/// True if the current player is in check and has no possible moves.
+		/// </summary>
+		public bool IsCheckmate {
+			get {
+				// TODO: implement this property.
+				throw new NotImplementedException();
+			}
+		}
+
+		/// <summary>
+		/// True if the game is a statemate because the current player has no moves, but is not in check.
+		/// </summary>
+		public bool IsStalemate {
+			get {
+				// TODO: implement this property.
+				throw new NotImplementedException();
+			}
+		}
+
+		/// <summary>
+		/// True if the current player is in check but has at least one possible move.
+		/// </summary>
+		public bool IsCheck {
+			get {
+				// TODO: implement this property.
+				throw new NotImplementedException();
+			}
+		}
 
 		/// <summary>
 		/// Manually places the given piece at the given position.
