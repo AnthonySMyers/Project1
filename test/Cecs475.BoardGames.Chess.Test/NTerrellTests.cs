@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Cecs475.BoardGames.Chess.Test {
-	public partial class ChessTests {
+	public class ExampleTests : ChessTests {
 		/// <summary>
 		/// Simple facts about "new" boards.
 		/// </summary>
