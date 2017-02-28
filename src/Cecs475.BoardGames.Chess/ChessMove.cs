@@ -34,7 +34,7 @@ namespace Cecs475.BoardGames.Chess {
 	/// <summary>
 	/// Represents a move to be applied to a ChessBoard object.
 	/// </summary>
-	public class ChessMove : IGameMove {
+	public class ChessMove : IGameMove, IEquatable<ChessMove> {
 		/// <summary>
 		/// Constructs a ChessMove that moves a piece from one position to another
 		/// </summary>
@@ -77,6 +77,10 @@ namespace Cecs475.BoardGames.Chess {
 
 		public bool Equals(IGameMove m) {
 			ChessMove other = m as ChessMove;
+			return StartPosition.Equals(other.StartPosition) && EndPosition.Equals(other.EndPosition);
+		}
+
+		public bool Equals(ChessMove other) {
 			return StartPosition.Equals(other.StartPosition) && EndPosition.Equals(other.EndPosition);
 		}
 
