@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System;
 using Xunit.Abstractions;
 using FluentAssertions;
+using System.IO;
+using System.Text;
 
 namespace Cecs475.BoardGames.Chess.Test {
 	/// <summary>
@@ -75,7 +77,8 @@ namespace Cecs475.BoardGames.Chess.Test {
 			board.Value.Should().Be(currentValue, "the board's value should not change after calling GetPossibleMoves");
 			var toApply = possMoves.FirstOrDefault(m => m.Equals(move));
 			if (toApply == null) {
-				throw new InvalidOperationException("Could not apply the move " + move);
+				throw new InvalidOperationException("Could not apply the move " + move + " to the board\n" +
+					ToString(board));
 			}
 			else {
 				board.ApplyMove(toApply);
@@ -111,6 +114,19 @@ namespace Cecs475.BoardGames.Chess.Test {
 				where pos.Player == player
 				select pos;
 
+		}
+
+		protected static string ToString(ChessBoard b) {
+			using (MemoryStream s = new MemoryStream()) {
+				StreamWriter writer = new StreamWriter(s, Encoding.Unicode);
+				writer.WriteLine();
+				writer.WriteLine("Board: ");
+				BlankView.PrintView(writer, b);
+				writer.WriteLine(BlankView.GetPlayerString(b.CurrentPlayer) + "'s turn");
+				writer.Flush();
+				var ret = Encoding.Unicode.GetString(s.ToArray());
+				return ret;
+			}
 		}
 	}
 }

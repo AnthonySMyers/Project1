@@ -319,8 +319,14 @@ namespace Cecs475.BoardGames.Chess.Test {
 			ApplyMove(b, Move("(d8, Queen)"));
 			var pawnpromotion = b.GetPieceAtPosition(Pos("d8"));
 			pawnpromotion.PieceType.Should().Be(ChessPieceType.Queen, "White pawn should be Queen");
+
+			possMoves = b.GetPossibleMoves() as IEnumerable<ChessMove>;
+			possMoves.Should().HaveCount(3).And.NotContain(Move("a2", "a1"));
+			ApplyMove(b, Move("h8", "h7"));
+			ApplyMove(b, Move("d8", "c8"));
 			ApplyMove(b, Move("a2", "a1"));
 			ApplyMove(b, Move("(a1, Queen)"));
+			
 			pawnpromotion.PieceType.Should().Be(ChessPieceType.Queen, "Black pawn should be Queen");
 		}
 
@@ -348,6 +354,24 @@ namespace Cecs475.BoardGames.Chess.Test {
 				 "Promoted pawn is back at selection of which piece to promote to");
 			ApplyMove(b, Move("(a8, Bishop)")); //player 1
 			b.IsCheck.Should().Be(false, "player 2 should not be on check");//player 2 no longer in check
+		}
+
+		[Fact]
+		public void PawnPromoteTest() {
+			ChessBoard b = CreateBoardWithPositions(
+//				Pos("a1"), ChessPieceType.King, 1,
+				Pos("h1"), ChessPieceType.King, 2,
+				 Pos("a7"), ChessPieceType.Pawn, 1,
+				 //Pos("b7"), ChessPieceType.Pawn, 1, // Comment this line out, and there should be 7 possible moves.
+				 Pos("c7"), ChessPieceType.Pawn, 1,
+				 Pos("d7"), ChessPieceType.Pawn, 1,
+				 Pos("e7"), ChessPieceType.Pawn, 1,
+				 Pos("f7"), ChessPieceType.Pawn, 1,
+				 Pos("g7"), ChessPieceType.Pawn, 1,
+				 Pos("h7"), ChessPieceType.Pawn, 1
+			);
+			var possMoves = b.GetPossibleMoves() as IEnumerable<ChessMove>;
+			possMoves.Should().HaveCount(7);
 		}
 
 	}

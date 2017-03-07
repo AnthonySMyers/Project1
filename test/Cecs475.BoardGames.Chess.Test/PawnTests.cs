@@ -268,7 +268,7 @@ namespace Cecs475.BoardGames.Chess.Test
 		[Fact]
 		public void PawnsPossibleMovesBlack() // (ID + 1) % 6 = 1 => Test Pawns
 		{
-			ChessBoard b = new ChessBoard();
+			/*ChessBoard b = new ChessBoard();
 			b.ApplyMove(Move("a2", "a3")); // Make sure we switch to player 2 (Black).
 			var pawnsPosition = b.GetPositionsOfPiece(ChessPieceType.Pawn, 2);
 			char c = 'a'; // Set up for later.
@@ -292,6 +292,43 @@ namespace Cecs475.BoardGames.Chess.Test
 				b.UndoLastMove(); // Undo pawn move.
 				b.ApplyMove(Move(c + "7", c + "5")); // Move Black's pawn forward two spots now.
 				b.ApplyMove(Move("b2", "b3")); // Dummy move to change player.
+				newPossMoves = b.GetPossibleMoves() as IEnumerable<ChessMove>;
+				newExpectedMoves = GetMovesAtPosition(newPossMoves, Pos(c + "5"));
+				newExpectedMoves.Should().HaveCount(1, "There should only be one move...")
+					 .And.Contain(Move(c + "5", c + "4"), "Move an only go forward one spot.");
+				c++; // Go on to the next letter...
+			}*/
+			ChessBoard b = new ChessBoard();
+			b.ApplyMove(Move("a2", "a3")); // Make sure we switch to player 2 (Black).
+			var pawnsPosition = b.GetPositionsOfPiece(ChessPieceType.Pawn, 2);
+			char c = 'a'; // Set up for later.
+			bool movePawnsNow = false;
+			foreach (BoardPosition pawns in pawnsPosition) {
+				var pawn = b.GetPieceAtPosition(pawns);
+				pawn.PieceType.Should().Be(ChessPieceType.Pawn, "This should be a pawn.");
+				pawn.Player.Should().Be(2, "This should be Black's pawn.");
+				var possMoves = b.GetPossibleMoves() as IEnumerable<ChessMove>;
+				var expectedMoves = GetMovesAtPosition(possMoves, pawns);
+				c.Should().BeLessThan('i', "var c should not have gone past letter h. Check pawnPositions (including its size/contents).");
+				expectedMoves.Should().HaveCount(2, "There should only be two moves in the initial state")
+					 .And.Contain(Move(c + "7", c + "6"), "First move should be one space ahead")
+					 .And.Contain(Move(c + "7", c + "5"), "Second move should be two spaces ahead.");
+				b.ApplyMove(Move(c + "7", c + "6")); // Move Black's pawn forward one spot.
+				if (movePawnsNow) {
+					b.ApplyMove(Move(c + "2", c + "3")); // Dummy move to change player.
+				}
+				else {
+					b.ApplyMove(Move(c + "1", c + "2")); // Dummy move to change player.
+					movePawnsNow = true;
+				}
+				var newPossMoves = b.GetPossibleMoves() as IEnumerable<ChessMove>;
+				var newExpectedMoves = GetMovesAtPosition(newPossMoves, Pos(c + "6"));
+				newExpectedMoves.Should().HaveCount(1, "There should only be one move...")
+					 .And.Contain(Move(c + "6", c + "5"), "Move an only go forward one spot.");
+				b.UndoLastMove(); // Undo dummy move.
+				b.UndoLastMove(); // Undo pawn move.
+				b.ApplyMove(Move(c + "7", c + "5")); // Move Black's pawn forward two spots now.
+				b.ApplyMove(Move(c + "2", c + "3")); // Dummy move to change player.
 				newPossMoves = b.GetPossibleMoves() as IEnumerable<ChessMove>;
 				newExpectedMoves = GetMovesAtPosition(newPossMoves, Pos(c + "5"));
 				newExpectedMoves.Should().HaveCount(1, "There should only be one move...")
